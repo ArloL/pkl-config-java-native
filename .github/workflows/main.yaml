@@ -10,8 +10,6 @@ on:
   schedule:
   - cron: "53 10 20 * *"
 permissions: {}
-env:
-  ARTIFACT: pkl-config-java-native
 
 jobs:
   debug:
@@ -89,14 +87,6 @@ jobs:
           -Dsha1="${GITHUB_SHA}" \
           -Drevision="${REVISION}" \
           verify
-    - name: Move artifacts
-      run: |
-        mkdir target/artifacts
-        cp target/"${ARTIFACT}"-* target/artifacts
-    - uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
-      with:
-        name: ${{ env.ARTIFACT }}-${{ github.job }}-${{ needs.version.outputs.new_version }}
-        path: target/artifacts
     - name: Make sure build did not change anything
       run: git diff --exit-code
   linux:
@@ -122,14 +112,6 @@ jobs:
           -Dsha1="${GITHUB_SHA}" \
           -Drevision="${REVISION}" \
           verify
-    - name: Move artifacts
-      run: |
-        mkdir target/artifacts
-        cp target/"${ARTIFACT}"-* target/artifacts
-    - uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
-      with:
-        name: ${{ env.ARTIFACT }}-${{ github.job }}-${{ needs.version.outputs.new_version }}
-        path: target/artifacts
     - name: Make sure build did not change anything
       run: git diff --exit-code
   windows:
@@ -150,14 +132,6 @@ jobs:
     - name: Build with Maven
       run: |
         .\mvnw --batch-mode -Dsha1="$env:GITHUB_SHA" -Drevision="$env:REVISION" verify
-    - name: Move artifacts
-      run: |
-        mkdir target/artifacts
-        copy target/$env:ARTIFACT-* target/artifacts
-    - uses: actions/upload-artifact@bbbca2ddaa5d8feaa63e36b76fdaad77386f024f # v7.0.0
-      with:
-        name: ${{ env.ARTIFACT }}-${{ github.job }}-${{ needs.version.outputs.new_version }}
-        path: target/artifacts
     - name: Make sure build did not change anything
       run: git diff --exit-code
   release:
@@ -174,27 +148,13 @@ jobs:
     - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       with:
         persist-credentials: false
-    - name: Download all workflow run artifacts
-      uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
-      with:
-        path: ./target
-    - name: Prepare artifacts
-      working-directory: target
-      env:
-        NEW_VERSION: ${{ needs.version.outputs.new_version }}
-      run: |
-        mkdir artifacts
-        zip -r "artifacts/${ARTIFACT}-windows-${NEW_VERSION}.zip" "${ARTIFACT}-windows-${NEW_VERSION}/"
-        zip -r "artifacts/${ARTIFACT}-linux-${NEW_VERSION}.zip" "${ARTIFACT}-linux-${NEW_VERSION}/"
-        zip -r "artifacts/${ARTIFACT}-macos-${NEW_VERSION}.zip" "${ARTIFACT}-macos-${NEW_VERSION}/"
     - name: Create Release
       env:
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         NEW_VERSION: ${{ needs.version.outputs.new_version }}
       run: |
         gh release create "v${NEW_VERSION}" \
-          --title "Release ${NEW_VERSION}" \
-          ./target/artifacts/*
+          --title "Release ${NEW_VERSION}"
     - name: Make sure build did not change anything
       run: git diff --exit-code
   deploy:
