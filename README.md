@@ -1,3 +1,4 @@
-# pkl-maven
+# pkl-config-java-native
 
-A template for graal projects
+A superset of pkl-config-java that works in native binaries.
+Mostly stuff copied from pkl-cli or pkl-commons-cli
