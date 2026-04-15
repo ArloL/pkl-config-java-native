@@ -1,0 +1,15 @@
+{
+  "resources": [
+    {
+      "glob": "org/pkl/core/stdlib/**/*.pkl"
+    }
+  ],
+  "bundles": [
+    {
+      "name": "org.pkl.core.errorMessages"
+    },
+    {
+      "name": "org.pkl.parser.errorMessages"
+    }
+  ]
+}
