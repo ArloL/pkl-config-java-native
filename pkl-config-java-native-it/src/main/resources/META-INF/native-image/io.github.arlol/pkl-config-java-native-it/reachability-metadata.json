@@ -1,0 +1,40 @@
+{
+  "reflection": [
+    {
+      "type": "io.github.arlol.pkl.Drifty$Repository",
+      "allDeclaredConstructors": true
+    },
+    {
+      "type": "io.github.arlol.pkl.Drifty$BranchProtection",
+      "allDeclaredConstructors": true
+    },
+    {
+      "type": "io.github.arlol.pkl.Drifty$CodeScanningTool",
+      "allDeclaredConstructors": true
+    },
+    {
+      "type": "io.github.arlol.pkl.Drifty$RulePattern",
+      "allDeclaredConstructors": true
+    },
+    {
+      "type": "io.github.arlol.pkl.Drifty$BypassActor",
+      "allDeclaredConstructors": true
+    },
+    {
+      "type": "io.github.arlol.pkl.Drifty$Ruleset",
+      "allDeclaredConstructors": true
+    },
+    {
+      "type": "io.github.arlol.pkl.Drifty$Pages",
+      "allDeclaredConstructors": true
+    },
+    {
+      "type": "io.github.arlol.pkl.Drifty$Environment",
+      "allDeclaredConstructors": true
+    },
+    {
+      "type": "io.github.arlol.pkl.Drifty$StatusCheck",
+      "allDeclaredConstructors": true
+    }
+  ]
+}

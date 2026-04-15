@@ -120,18 +120,83 @@
 		<plugins>
 			<plugin>
 				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>build-helper-maven-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>pkl-add-source</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>add-source</goal>
+						</goals>
+						<configuration>
+							<sources>
+								<source>${project.build.directory}/generated-sources/pkl/java</source>
+							</sources>
+						</configuration>
+					</execution>
+					<execution>
+						<id>pkl-add-resource</id>
+						<phase>generate-resources</phase>
+						<goals>
+							<goal>add-resource</goal>
+						</goals>
+						<configuration>
+							<resources>
+								<resource>
+									<directory>
+										${project.build.directory}/generated-sources/pkl/resources</directory>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
 				<artifactId>exec-maven-plugin</artifactId>
 				<version>3.6.3</version>
 				<configuration>
 					<mainClass>${start-class}</mainClass>
 					<executable>${env.JAVA_HOME}/bin/java</executable>
 					<arguments>
-						<argument>-agentlib:native-image-agent=config-merge-dir=../library/src/main/resources/META-INF/native-image</argument>
+						<argument>-agentlib:native-image-agent=config-merge-dir=../pkl-config-java-native/src/main/resources/META-INF/native-image</argument>
 						<argument>-classpath</argument>
 						<classpath />
 						<argument>${start-class}</argument>
 					</arguments>
 				</configuration>
+				<executions>
+					<execution>
+						<id>pkl-codegen-java</id>
+						<phase>generate-sources</phase>
+						<goals>
+							<goal>java</goal>
+						</goals>
+						<configuration combine.self="override">
+							<includePluginDependencies>true</includePluginDependencies>
+							<mainClass>org.pkl.codegen.java.Main</mainClass>
+							<arguments>
+								<argument>--output-dir</argument>
+								<argument>${project.build.directory}/generated-sources/pkl</argument>
+								<argument>--rename</argument>
+								<argument>drifty=io.github.arlol.pkl.Drifty</argument>
+								<argument>${project.basedir}/config/drifty.pkl</argument>
+							</arguments>
+						</configuration>
+					</execution>
+				</executions>
+				<dependencies>
+					<dependency>
+						<groupId>org.pkl-lang</groupId>
+						<artifactId>pkl-codegen-java</artifactId>
+						<version>0.31.1</version>
+					</dependency>
+					<dependency>
+						<groupId>com.github.ajalt.clikt</groupId>
+						<artifactId>clikt-markdown-jvm</artifactId>
+						<version>5.0.3</version>
+					</dependency>
+				</dependencies>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

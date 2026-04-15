@@ -1,4 +1,54 @@
 {
+  "reflection": [
+    {
+      "type": "org.pkl.config.java.mapper.Named",
+      "allDeclaredMethods": true
+    },
+    {
+      "type": "org.pkl.config.java.mapper.NonNull",
+      "allDeclaredMethods": true
+    },
+    {
+      "type": "java.util.ArrayList",
+      "methods": [
+        { "name": "<init>", "parameterTypes": [] },
+        { "name": "<init>", "parameterTypes": ["int"] }
+      ]
+    },
+    {
+      "type": "java.util.HashSet",
+      "methods": [
+        { "name": "<init>", "parameterTypes": [] },
+        { "name": "<init>", "parameterTypes": ["int", "float"] }
+      ]
+    },
+    {
+      "type": "java.util.TreeSet",
+      "methods": [
+        { "name": "<init>", "parameterTypes": [] }
+      ]
+    },
+    {
+      "type": "java.util.HashMap",
+      "methods": [
+        { "name": "<init>", "parameterTypes": [] },
+        { "name": "<init>", "parameterTypes": ["int", "float"] }
+      ]
+    },
+    {
+      "type": "java.util.TreeMap",
+      "methods": [
+        { "name": "<init>", "parameterTypes": [] }
+      ]
+    },
+    {
+      "type": "java.util.ArrayDeque",
+      "methods": [
+        { "name": "<init>", "parameterTypes": [] },
+        { "name": "<init>", "parameterTypes": ["int"] }
+      ]
+    }
+  ],
   "resources": [
     {
       "glob": "org/pkl/core/stdlib/**/*.pkl"
