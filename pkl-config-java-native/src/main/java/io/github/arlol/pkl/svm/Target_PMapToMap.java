@@ -40,10 +40,8 @@ final class Target_PMapToMap {
 							.newInstance((int) (length / .75f) + 1, .75f);
 				} catch (Throwable t) {
 					throw new ConversionException(
-							String.format(
-									"Error invoking constructor of class `%s`.",
-									clazz
-							),
+							"Error invoking constructor of class `%s`."
+									.formatted(clazz),
 							t
 					);
 				}
@@ -58,10 +56,8 @@ final class Target_PMapToMap {
 						return (Map<K, V>) ctor0.newInstance();
 					} catch (Throwable t) {
 						throw new ConversionException(
-								String.format(
-										"Error invoking constructor of class `%s`.",
-										clazz
-								),
+								"Error invoking constructor of class `%s`."
+										.formatted(clazz),
 								t
 						);
 					}
