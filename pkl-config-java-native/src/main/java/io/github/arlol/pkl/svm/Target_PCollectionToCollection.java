@@ -56,10 +56,8 @@ final class Target_PCollectionToCollection {
 							.newInstance((int) (length / .75f) + 1, .75f);
 				} catch (Throwable t) {
 					throw new ConversionException(
-							String.format(
-									"Error invoking constructor of class `%s`.",
-									clazz
-							),
+							"Error invoking constructor of class `%s`."
+									.formatted(clazz),
 							t
 					);
 				}
@@ -74,10 +72,8 @@ final class Target_PCollectionToCollection {
 						return (Collection<T>) ctor1.newInstance(length);
 					} catch (Throwable t) {
 						throw new ConversionException(
-								String.format(
-										"Error invoking constructor of class `%s`.",
-										clazz
-								),
+								"Error invoking constructor of class `%s`."
+										.formatted(clazz),
 								t
 						);
 					}
@@ -92,10 +88,8 @@ final class Target_PCollectionToCollection {
 							return (Collection<T>) ctor0.newInstance();
 						} catch (Throwable t) {
 							throw new ConversionException(
-									String.format(
-											"Error invoking constructor of class `%s`.",
-											clazz
-									),
+									"Error invoking constructor of class `%s`."
+											.formatted(clazz),
 									t
 							);
 						}
