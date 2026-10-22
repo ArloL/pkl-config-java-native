@@ -74,11 +74,17 @@ jobs:
     - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       with:
         persist-credentials: false
-    - uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6.0.1
+    # setup-java lacks GraalVM innovation releases: https://github.com/actions/setup-java/issues/1295
+    - name: Read GraalVM version
+      id: graalvm
+      shell: bash
+      run: echo "version=$(sed -n 's:.*<graalvm.version>\(.*\)</graalvm.version>.*:\1:p' pom.xml)" >> "$GITHUB_OUTPUT"
+    - uses: graalvm/setup-graalvm@27b360dbb857524eaf0b4c4cef364d38e5b4f173 # v1.6.7
       with:
         cache: maven
-        distribution: graalvm
-        java-version-file: .tool-versions
+        distribution: graalvm-community
+        java-version: '25'
+        version: ${{ steps.graalvm.outputs.version }}
     - name: Build with Maven
       run: |
         set -o xtrace
@@ -99,11 +105,17 @@ jobs:
     - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       with:
         persist-credentials: false
-    - uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6.0.1
+    # setup-java lacks GraalVM innovation releases: https://github.com/actions/setup-java/issues/1295
+    - name: Read GraalVM version
+      id: graalvm
+      shell: bash
+      run: echo "version=$(sed -n 's:.*<graalvm.version>\(.*\)</graalvm.version>.*:\1:p' pom.xml)" >> "$GITHUB_OUTPUT"
+    - uses: graalvm/setup-graalvm@27b360dbb857524eaf0b4c4cef364d38e5b4f173 # v1.6.7
       with:
         cache: maven
-        distribution: graalvm
-        java-version-file: .tool-versions
+        distribution: graalvm-community
+        java-version: '25'
+        version: ${{ steps.graalvm.outputs.version }}
     - name: Build with Maven
       run: |
         set -o xtrace
@@ -124,11 +136,17 @@ jobs:
     - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
       with:
         persist-credentials: false
-    - uses: actions/setup-java@de7274f081f381c8f8158605e0321c36c376e2e6 # v6.0.1
+    # setup-java lacks GraalVM innovation releases: https://github.com/actions/setup-java/issues/1295
+    - name: Read GraalVM version
+      id: graalvm
+      shell: bash
+      run: echo "version=$(sed -n 's:.*<graalvm.version>\(.*\)</graalvm.version>.*:\1:p' pom.xml)" >> "$GITHUB_OUTPUT"
+    - uses: graalvm/setup-graalvm@27b360dbb857524eaf0b4c4cef364d38e5b4f173 # v1.6.7
       with:
         cache: maven
-        distribution: graalvm
-        java-version-file: .tool-versions
+        distribution: graalvm-community
+        java-version: '25'
+        version: ${{ steps.graalvm.outputs.version }}
     - name: Build with Maven
       run: |
         .\mvnw --batch-mode -Dsha1="$env:GITHUB_SHA" -Drevision="$env:REVISION" verify
