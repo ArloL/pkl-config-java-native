@@ -3,18 +3,26 @@
     "addLabels": [
         "{{manager}}",
     ],
+    "customDatasources": {
+        "graalvm-community-innovation": {
+            "defaultRegistryUrlTemplate": "https://mise-java.jdx.dev/jvm/ga/linux/x86_64.json",
+            "transformTemplates": [
+                "{\"releases\": [$[vendor = \"graalvm-community\" and \"innovation\" in features].{\"version\": version, \"releaseTimestamp\": created_at}]}",
+            ],
+        },
+    },
     "customManagers": [
         {
             "customType": "regex",
-            "datasourceTemplate": "github-releases",
-            "depNameTemplate": "graalvm/graalvm-ce-builds",
-            "extractVersionTemplate": "^jdk-(?<version>\\S+)",
+            "datasourceTemplate": "custom.graalvm-community-innovation",
+            "depNameTemplate": "graalvm-community-innovation",
             "managerFilePatterns": [
                 "/^\\.tool-versions$/",
             ],
             "matchStrings": [
-                "java graalvm-community-(?<currentValue>\\S+)",
+                "java graalvm-community-innovation-(?<currentValue>\\S+)",
             ],
+            "versioningTemplate": "loose",
         },
     ],
     "extends": [
@@ -29,6 +37,16 @@
         "dependencies",
     ],
     "minimumReleaseAge": "7 days",
+    "packageRules": [
+        {
+            // JDK in .tool-versions must match the Truffle/polyglot jars
+            "groupName": "graalvm",
+            "matchPackageNames": [
+                "graalvm-community-innovation",
+                "/^org\\.graalvm\\.(nativeimage|polyglot|sdk|truffle):/",
+            ],
+        },
+    ],
     "schedule": [
         "on the 20th day of the month",
     ],
