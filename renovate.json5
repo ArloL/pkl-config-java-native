@@ -21,6 +21,10 @@
         "config:recommended",
         "customManagers:githubActionsVersions",
     ],
+    "ignoreDeps": [
+        "io.github.arlol:pkl-config-java-native",
+        "io.github.arlol:pkl-config-java-native-parent",
+    ],
     "labels": [
         "dependencies",
     ],
