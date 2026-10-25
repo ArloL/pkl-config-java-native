@@ -78,7 +78,7 @@ jobs:
     - name: Read GraalVM version
       id: graalvm
       shell: bash
-      run: echo "version=$(sed -n 's:.*<graalvm.version>\(.*\)</graalvm.version>.*:\1:p' pom.xml)" >> "$GITHUB_OUTPUT"
+      run: echo "version=$(sed -n 's:.*<graalvm.version>\(.*\)</graalvm.version>.*:\1:p' pom.xml)" >> "${GITHUB_OUTPUT}"
     - uses: graalvm/setup-graalvm@27b360dbb857524eaf0b4c4cef364d38e5b4f173 # v1.6.7
       with:
         cache: maven
@@ -109,7 +109,7 @@ jobs:
     - name: Read GraalVM version
       id: graalvm
       shell: bash
-      run: echo "version=$(sed -n 's:.*<graalvm.version>\(.*\)</graalvm.version>.*:\1:p' pom.xml)" >> "$GITHUB_OUTPUT"
+      run: echo "version=$(sed -n 's:.*<graalvm.version>\(.*\)</graalvm.version>.*:\1:p' pom.xml)" >> "${GITHUB_OUTPUT}"
     - uses: graalvm/setup-graalvm@27b360dbb857524eaf0b4c4cef364d38e5b4f173 # v1.6.7
       with:
         cache: maven
@@ -140,7 +140,7 @@ jobs:
     - name: Read GraalVM version
       id: graalvm
       shell: bash
-      run: echo "version=$(sed -n 's:.*<graalvm.version>\(.*\)</graalvm.version>.*:\1:p' pom.xml)" >> "$GITHUB_OUTPUT"
+      run: echo "version=$(sed -n 's:.*<graalvm.version>\(.*\)</graalvm.version>.*:\1:p' pom.xml)" >> "${GITHUB_OUTPUT}"
     - uses: graalvm/setup-graalvm@27b360dbb857524eaf0b4c4cef364d38e5b4f173 # v1.6.7
       with:
         cache: maven
