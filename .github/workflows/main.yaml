@@ -14,6 +14,7 @@ permissions: {}
 jobs:
   debug:
     runs-on: ubuntu-slim
+    timeout-minutes: 5
     steps:
     - name: Dump GitHub context
       env:
@@ -43,6 +44,7 @@ jobs:
       run: set
   version:
     runs-on: ubuntu-slim
+    timeout-minutes: 5
     permissions:
       contents: write
     outputs:
@@ -67,6 +69,7 @@ jobs:
   macos:
     needs: version
     runs-on: macos-latest
+    timeout-minutes: 60
     env:
       REVISION: ${{ needs.version.outputs.new_version }}
       BUILD_TIMESTAMP: ${{ needs.version.outputs.build_timestamp }}
@@ -100,6 +103,7 @@ jobs:
   linux:
     needs: version
     runs-on: ubuntu-latest
+    timeout-minutes: 30
     env:
       REVISION: ${{ needs.version.outputs.new_version }}
       BUILD_TIMESTAMP: ${{ needs.version.outputs.build_timestamp }}
@@ -133,6 +137,7 @@ jobs:
   linux-arm:
     needs: version
     runs-on: ubuntu-26.04-arm
+    timeout-minutes: 30
     env:
       REVISION: ${{ needs.version.outputs.new_version }}
       BUILD_TIMESTAMP: ${{ needs.version.outputs.build_timestamp }}
@@ -166,6 +171,7 @@ jobs:
   windows:
     needs: version
     runs-on: windows-latest
+    timeout-minutes: 30
     env:
       REVISION: ${{ needs.version.outputs.new_version }}
       BUILD_TIMESTAMP: ${{ needs.version.outputs.build_timestamp }}
